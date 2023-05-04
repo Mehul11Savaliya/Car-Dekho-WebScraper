@@ -1,0 +1,16 @@
+{
+  "name": "car-dekho-web-scraper",
+  "version": "1.0.0",
+  "description": "car-dekho-web-scraper",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MSx85",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "puppeteer": "^19.11.1",
+    "puppeteer-core": "^19.11.1"
+  }
+}

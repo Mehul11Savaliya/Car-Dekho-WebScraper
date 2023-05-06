@@ -6,7 +6,7 @@ try {
 console.log("getting browser instance..");
 brwsr = await puppeteer.launch({
     headless:false,
-    args:['--disable-setuid-sandbox'],
+    args:['--window-size=1920,1080'],
     'ignoreHTTPSErrors':true
 });
 } catch (error) {

@@ -1,6 +1,7 @@
+const { data } = require("autoprefixer");
 const browserob = require("./browser.js");
 const scraperController = require("./pageController.js");
-const {PageScrapper} = require("./pageScraper.js");
+const {PageScrapper,OverViewScraper} = require("./pageScraper.js");
 
 const express = require("express");
 const app = express();
@@ -19,12 +20,33 @@ const host = '127.0.0.1';
 // }
 // // getBrowser();
 app.get("/",async(req,res)=>{
-let browser = await browserob.startBrowser();
-
+// let browser = await browserob.startBrowser();
+let data = {msg:"hrlo"};
 const page = new PageScrapper("https://www.cardekho.com/new-7-seater+cars");
-const data = await page.scraper(browser);
-browser.close();
+// const data = await page.scraper(browser);
+// browser.close();
 res.status(200).json(data);
+});
+
+app.get("/scrapurl",async(req,res)=>{
+    let browser = await browserob.startBrowser();
+    let url = req.query.url;
+    // let data = url;
+    const page = new PageScrapper(url);
+    const data = await page.scraper(browser);
+   browser.close();
+    res.status(200).json(data);
+    
+});
+app.get("/overview",async(req,res)=>{
+    let browser = await browserob.startBrowser();
+    let url = req.query.url;
+    // let data = url;
+    const page = new OverViewScraper(url);
+    const data = await page.startScraping(browser);
+  browser.close();
+    res.status(200).send(data);
+    
 });
 
 app.listen(port,host,()=>{

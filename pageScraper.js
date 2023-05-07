@@ -68,23 +68,23 @@ class PageScrapper {
               variants = await variants.getProperties();
               variants = Array.from(variants.values());
               variants = Array.from(variants);
-              for (let vari of variants) {
-                let varient = {};
-                let varient_name = await page.evaluate(el => el.querySelector('div.gsc_col-md-11.gsc_col-sm-10.gsc_col-xs-10.brandvariantcar > div > a').innerHTML, vari);
-                varient.name = varient_name;
-                let url = await page.evaluate(el => el.querySelector('div.gsc_col-md-11.gsc_col-sm-10.gsc_col-xs-10.brandvariantcar > div > a').href, vari);
-                varient.url = url;
-                let other = await page.evaluate(el => el.querySelector('div.gsc_col-md-11.gsc_col-sm-10.gsc_col-xs-10.brandvariantcar > div > span').innerText, vari);
-                other = other.replaceAll('<i class="icon-cd_R">Rs.</i>', '');
-                other = other.replaceAll('<sup>*</sup>', '');
-                let [price, cc, milage] = other.split(',');
-                varient.price = price;
-                varient.engineCC = cc;
-                varient.milage = milage;
-                //  console.log(varient);
-                varray.push(varient);
-              }
-              carobj.matchingVarient = { number: varray.length, list: varray };
+              // for (let vari of variants) {
+              //   let varient = {};
+              //   let varient_name = await page.evaluate(el => el.querySelector('div.gsc_col-md-11.gsc_col-sm-10.gsc_col-xs-10.brandvariantcar > div > a').innerHTML, vari);
+              //   varient.name = varient_name;
+              //   let url = await page.evaluate(el => el.querySelector('div.gsc_col-md-11.gsc_col-sm-10.gsc_col-xs-10.brandvariantcar > div > a').href, vari);
+              //   varient.url = url;
+              //   let other = await page.evaluate(el => el.querySelector('div.gsc_col-md-11.gsc_col-sm-10.gsc_col-xs-10.brandvariantcar > div > span').innerText, vari);
+              //   other = other.replaceAll('<i class="icon-cd_R">Rs.</i>', '');
+              //   other = other.replaceAll('<sup>*</sup>', '');
+              //   let [price, cc, milage] = other.split(',');
+              //   varient.price = price;
+              //   varient.engineCC = cc;
+              //   varient.milage = milage;
+              //   //  console.log(varient);
+              //   varray.push(varient);
+              // }
+             // carobj.matchingVarient = { number: varray.length, list: varray };
               varray = [];
 
               let othervariants = await page.evaluateHandle(el => el.querySelectorAll('section > div.expandcollapse.other.clear > div.test > div > ul > li'), item);
@@ -402,14 +402,14 @@ class OverViewScraper {
     let data = {};
     data.title = $('h2').html();
     let oprice = $('table > tbody > tr');
-    let prices = [];
+    
     oprice.each((idx, val) => {
       $ = cheerio.load(val);
       let ttl = $('td.gsc_col-xs-8').text();
       let value = $('td.gsc_col-xs-4').text();
-      prices.push({ ttl, value });
+      data[ttl] = value;
     });
-    data.prices = prices;
+    
     return data;
   }
 

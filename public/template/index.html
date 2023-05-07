@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardekho Web Scraper</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/prism.css" />
+    <script type="text/javascript" src="/public/prism.js"></script>
+    <script>
+        const fetcData = async (url, preide) => {
+            try {
+                const response = await fetch(url, {
+                    method: "get"
+                });
+                const json = await response.json();
+                let d = document.getElementById(preide)
+                d.textContent = '';
+                d.textContent = JSON.stringify(json, null, 2);
+
+                Prism.highlightElement(d);
+                console.log(json);
+
+            } catch (error) {
+                console.log(error);
+                alert('error')
+            }
+        }
+        const copy = (id) => {
+            let a = document.getElementById(id);
+
+
+            navigator.clipboard.writeText(a.textContent);
+
+            // Alert the copied text
+            alert("Copied !");
+        }
+
+        const download = (id) => {
+            let a = document.getElementById(id);
+            const blob = new Blob([a.textContent], { type: 'text/json' });
+            const url = URL.createObjectURL(blob);
+            const ax = document.createElement('a');
+            a.href = url;
+            a.download = 'filename.txt';
+            document.body.appendChild(ax);
+            a.click();
+            document.body.removeChild(ax);
+            URL.revokeObjectURL(url);
+        }
+
+        const fetcData2 = async (preide, num) => {
+            url = document.getElementById('apiurl').value;
+            if (num == 2) {
+                url = document.getElementById('apiurl2').value;
+            }
+            try {
+
+                const response = await fetch(url, {
+                    method: "get"
+                });
+                const json = await response.json();
+                let d = document.getElementById(preide);
+                d.textContent = '';
+                d.textContent = JSON.stringify(json, null, 2);
+
+                Prism.highlightElement(d);
+                console.log(json);
+
+            } catch (error) {
+                console.log(error);
+                alert('error')
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="" style="position: relative;top:5vh;width: 95vw;left: 2vw;">
+        <h5>Created On 5/may/2023</h5>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Examples
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="accordion" id="accordionExample2">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne2" aria-expanded="true"
+                                        aria-controls="collapseOne2">
+                                        Examples1 <small>Catagory Wise Scraping ex 7searer,suvs,5 seater etc</small>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne2" class="accordion-collapse collapse show"
+                                    data-bs-parent="#accordionExample2">
+                                    <div class="accordion-body">
+                                        <div class="mb-3">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="API ENDPOINT URL"
+                                                    disabled aria-label="API URL" aria-describedby="basic-addon2"
+                                                    value="http://127.0.0.1:5557/scrapurl?url=https://www.cardekho.com/new-7-seater+cars">
+                                                <button class="btn btn-primary" id="basic-addon2"
+                                                    onclick="fetcData('/scrapurl?url=https://www.cardekho.com/new-7-seater+cars','ex1')">GO!</button>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlTextarea1" class="form-label">OutPut
+                                                JSON</label>
+                                            <pre id="ex1" class="form-control"
+                                                style="background-color:rgb(51, 50, 50);color: white;max-height: 60vh;overflow-y: scroll;"
+                                                disabled id="exampleFormControlTextarea1">
+
+                                        </pre>
+                                            <button style="border: 0; position: relative;top:-77px;left: 90%;">
+                                                <svg onclick="copy('ex1')" xmlns="http://www.w3.org/2000/svg" width="16"
+                                                    height="16" fill="currentColor" class="bi bi-clipboard"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                                    <path
+                                                        d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                                                </svg>
+                                            </button>
+                                            <button style="border: 0; position: relative;top:-77px;left: 90%;">
+                                                <svg onclick="download('ex1')" xmlns="http://www.w3.org/2000/svg"
+                                                    width="16" height="16" fill="currentColor" class="bi bi-download"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                                    <path
+                                                        d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="accordion" id="accordionExample2">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne3" aria-expanded="false"
+                                            aria-controls="collapseOne3">
+                                            Examples2 <small>Perticualer car model scraoung ex jeep
+                                                maridian,thar,harrier etc</small>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne3" class="accordion-collapse collapse show"
+                                        data-bs-parent="#accordionExample3">
+                                        <div class="accordion-body">
+                                            <div class="mb-3">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="API ENDPOINT URL" disabled aria-label="API URL"
+                                                        aria-describedby="basic-addon2"
+                                                        value="http://127.0.0.1:5557/overview?url=https://www.cardekho.com/overview/Jeep_Meridian/Jeep_Meridian_Limited_Opt.htm">
+                                                    <button class="btn btn-primary" id="basic-addon2"
+                                                        onclick="fetcData('/overview?url=https://www.cardekho.com/overview/Jeep_Meridian/Jeep_Meridian_Limited_Opt.htm','ex2')">GO!</button>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlTextarea1" class="form-label">OutPut
+                                                    JSON</label>
+                                                <pre id="ex2" class="form-control"
+                                                    style="background-color:rgb(51, 50, 50);color: white;max-height: 60vh;overflow-y: scroll;"
+                                                    disabled id="exampleFormControlTextarea1">
+
+                                            </pre>
+                                                <button style="border: 0; position: relative;top:-77px;left: 90%;">
+                                                    <svg onclick="copy('ex2')" xmlns="http://www.w3.org/2000/svg"
+                                                        width="16" height="16" fill="currentColor"
+                                                        class="bi bi-clipboard" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                                        <path
+                                                            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                                                    </svg>
+                                                </button>
+                                                <button style="border: 0; position: relative;top:-77px;left: 90%;">
+                                                    <svg onclick="download('ex2')" xmlns="http://www.w3.org/2000/svg"
+                                                        width="16" height="16" fill="currentColor"
+                                                        class="bi bi-download" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                                        <path
+                                                            d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+            <br>
+            <div class="accordion" id="accordionExample4">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne4" aria-expanded="false" aria-controls="collapseOne4">
+                            Test API
+                        </button>
+                    </h2>
+                    <div id="collapseOne4" class="accordion-collapse collapse show" data-bs-parent="#accordionExample4">
+                        <div class="accordion-body">
+                            <div class="accordion" id="accordionExample5">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne5" aria-expanded="true"
+                                            aria-controls="collapseOne5">
+                                            Catagory Wise Scraping <small>Catagory Wise Scraping ex 7searer,suvs,5
+                                                seater etc</small>
+                                        </button>
+                                     
+                                    </h2>
+                                    <div id="collapseOne5" class="accordion-collapse collapse show"
+                                        data-bs-parent="#accordionExample5">
+                                        <div class="accordion-body">
+                                            <div class="mb-3">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" id="apiurl" class="form-control"
+                                                        placeholder="API ENDPOINT URL" aria-label="API URL"
+                                                        aria-describedby="basic-addon2"
+                                                        value="http://127.0.0.1:5557/scrapurl?url=https://www.cardekho.com/new-7-seater+cars">
+                                                    <button class="btn btn-primary" id="basic-addon2"
+                                                        onclick="fetcData2('ex3',1)">GO!</button>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlTextarea1" class="form-label">OutPut
+                                                    JSON</label>
+                                                <pre id="ex3" class="form-control"
+                                                    style="background-color:rgb(51, 50, 50);color: white;max-height: 60vh;overflow-y: scroll;"
+                                                    disabled id="exampleFormControlTextarea1">
+
+                                            </pre>
+                                                <button style="border: 0; position: relative;top:-77px;left: 90%;">
+                                                    <svg onclick="copy('ex1')" xmlns="http://www.w3.org/2000/svg"
+                                                        width="16" height="16" fill="currentColor"
+                                                        class="bi bi-clipboard" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                                        <path
+                                                            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                                                    </svg>
+                                                </button>
+                                                <button style="border: 0; position: relative;top:-77px;left: 90%;">
+                                                    <svg onclick="download('ex1')" xmlns="http://www.w3.org/2000/svg"
+                                                        width="16" height="16" fill="currentColor"
+                                                        class="bi bi-download" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                                        <path
+                                                            d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="accordion" id="accordionExample6">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne6" aria-expanded="false"
+                                                aria-controls="collapseOne6">
+                                                Car Model Wise Scraping<small>Perticualer car model scraoung ex jeep
+                                                    maridian,thar,harrier etc</small>
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne6" class="accordion-collapse collapse show"
+                                            data-bs-parent="#accordionExample6">
+                                            <div class="accordion-body">
+                                                <div class="mb-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" id="apiurl2" class="form-control"
+                                                            placeholder="API ENDPOINT URL" aria-label="API URL"
+                                                            aria-describedby="basic-addon2"
+                                                            value="http://127.0.0.1:5557/overview?url=https://www.cardekho.com/overview/Jeep_Meridian/Jeep_Meridian_Limited_Opt.htm">
+                                                        <button class="btn btn-primary" id="basic-addon2"
+                                                            onclick="fetcData2('ex4',2)">GO!</button>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlTextarea1" class="form-label">OutPut
+                                                        JSON</label>
+                                                    <pre id="ex4" class="form-control"
+                                                        style="background-color:rgb(51, 50, 50);color: white;max-height: 60vh;overflow-y: scroll;"
+                                                        disabled id="exampleFormControlTextarea1">
+
+                                                </pre>
+                                                    <button style="border: 0; position: relative;top:-77px;left: 90%;">
+                                                        <svg onclick="copy('ex2')" xmlns="http://www.w3.org/2000/svg"
+                                                            width="16" height="16" fill="currentColor"
+                                                            class="bi bi-clipboard" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                                            <path
+                                                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                                                        </svg>
+                                                    </button>
+                                                    <button style="border: 0; position: relative;top:-77px;left: 90%;">
+                                                        <svg onclick="download('ex2')"
+                                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-download"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                                            <path
+                                                                d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

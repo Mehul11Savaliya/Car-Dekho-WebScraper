@@ -2,11 +2,14 @@ const { data } = require("autoprefixer");
 const browserob = require("./browser.js");
 const scraperController = require("./pageController.js");
 const {PageScrapper,OverViewScraper} = require("./pageScraper.js");
+const path = require("path");
 
 const express = require("express");
 const app = express();
 const port = 5557;
 const host = '127.0.0.1';
+
+app.use("/public",express.static("public"));
 
 // // let browser = browserob.startBrowser();
 // const getBrowser = async()=>{
@@ -25,7 +28,7 @@ let data = {msg:"hrlo"};
 const page = new PageScrapper("https://www.cardekho.com/new-7-seater+cars");
 // const data = await page.scraper(browser);
 // browser.close();
-res.status(200).json(data);
+res.status(200).sendFile(path.join(__dirname,"./public/template/index.html"));
 });
 
 app.get("/scrapurl",async(req,res)=>{
@@ -49,7 +52,7 @@ app.get("/overview",async(req,res)=>{
     
 });
 
-app.listen(port,host,()=>{
+app.listen(port,()=>{
     console.log(`server started at : http://${host}:${port}`);
 });
 

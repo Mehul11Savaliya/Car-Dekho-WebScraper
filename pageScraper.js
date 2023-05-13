@@ -337,11 +337,16 @@ class OverViewScraper {
 
       cardata.allSpecData = allspecdata;  
 
+      try {
+       
       const ColorHTML = await page.evaluate(el=>{
         return el.querySelector('#colorsSection').innerHTML;
       },main);
       cardata.availableColors=await this.extractColorDetails(ColorHTML);
-
+ 
+      } catch (error) {
+        
+      }
       const AlternativHTML = await page.evaluate(el=>{
         let x =  el.querySelector("div.similarcarsOuter > div > section > div > ul").innerHTML;
      //   console.log(x);

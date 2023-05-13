@@ -13,76 +13,19 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="/public/prism.css" />
     <script type="text/javascript" src="/public/prism.js"></script>
-    <script>
-        const fetcData = async (url, preide) => {
-            try {
-                const response = await fetch(url, {
-                    method: "get"
-                });
-                const json = await response.json();
-                let d = document.getElementById(preide)
-                d.textContent = '';
-                d.textContent = JSON.stringify(json, null, 2);
-
-                Prism.highlightElement(d);
-                console.log(json);
-
-            } catch (error) {
-                console.log(error);
-                alert('error')
-            }
+   
+    <style>
+        .invsble{
+            visibility: hidden;
         }
-        const copy = (id) => {
-            let a = document.getElementById(id);
-
-
-            navigator.clipboard.writeText(a.textContent);
-
-            // Alert the copied text
-            alert("Copied !");
+        .vsbl{
+            visibility: visible;
         }
-
-        const download = (id) => {
-            let a = document.getElementById(id);
-            const blob = new Blob([a.textContent], { type: 'text/json' });
-            const url = URL.createObjectURL(blob);
-            const ax = document.createElement('a');
-            a.href = url;
-            a.download = 'filename.txt';
-            document.body.appendChild(ax);
-            a.click();
-            document.body.removeChild(ax);
-            URL.revokeObjectURL(url);
-        }
-
-        const fetcData2 = async (preide, num) => {
-            url = document.getElementById('apiurl').value;
-            if (num == 2) {
-                url = document.getElementById('apiurl2').value;
-            }
-            try {
-
-                const response = await fetch(url, {
-                    method: "get"
-                });
-                const json = await response.json();
-                let d = document.getElementById(preide);
-                d.textContent = '';
-                d.textContent = JSON.stringify(json, null, 2);
-
-                Prism.highlightElement(d);
-                console.log(json);
-
-            } catch (error) {
-                console.log(error);
-                alert('error')
-            }
-        }
-    </script>
+    </style>
 </head>
 
 <body>
-    <div class="" style="position: relative;top:5vh;width: 95vw;left: 2vw;">
+    <div  class="" style="position: relative;top:5vh;width: 95vw;left: 2vw;">
         <h5>Created On 5/may/2023</h5>
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -348,6 +291,85 @@
                 </div>
             </div>
         </div>
+        <img src="/public/loadinggif.gif" class="invsble" alt="loadinggif" id="load" style="position: fixed;top:20vh;left: 30vw;width: 30%;">
+        <script >
+            let img = document.querySelector('#load');
+            const fetcData = async (url, preide) => {
+                try {
+                    img.classList.remove('invsbl');
+                    img.classList.add('vsbl');
+                    const response = await fetch(url, {
+                        method: "get"
+                    });
+                    const json = await response.json();
+                    let d = document.getElementById(preide)
+                    d.textContent = '';
+                    d.textContent = JSON.stringify(json, null, 2);
+    
+                    Prism.highlightElement(d);
+                    img.classList.remove('vsbl');
+                    img.classList.add('invsbl');
+                   
+                 //   console.log(json);
+    
+                } catch (error) {
+                    console.log(error);
+                    alert('error')
+                }
+            }
+            const copy = (id) => {
+                let a = document.getElementById(id);
+    
+    
+                navigator.clipboard.writeText(a.textContent);
+    
+                // Alert the copied text
+                alert("Copied !");
+            }
+    
+            const download = (id) => {
+                let a = document.getElementById(id);
+                const blob = new Blob([a.textContent], { type: 'text/json' });
+                const url = URL.createObjectURL(blob);
+                const ax = document.createElement('a');
+                a.href = url;
+                a.download = 'filename.txt';
+                document.body.appendChild(ax);
+                a.click();
+                document.body.removeChild(ax);
+                URL.revokeObjectURL(url);
+            }
+    
+            const fetcData2 = async (preide, num) => {
+                img.classList.remove('invsbl');
+                img.classList.add('vsbl');
+                   
+                url = document.getElementById('apiurl').value;
+                if (num == 2) {
+                    url = document.getElementById('apiurl2').value;
+                }
+                try {
+    
+                    const response = await fetch(url, {
+                        method: "get"
+                    });
+                    const json = await response.json();
+                    let d = document.getElementById(preide);
+                    d.textContent = '';
+                    d.textContent = JSON.stringify(json, null, 2);
+    
+                    Prism.highlightElement(d);
+                    img.classList.remove('vsbl');
+                    img.classList.add('invsbl');
+                   
+                  //  console.log(json);
+    
+                } catch (error) {
+                    console.log(error);
+                    alert('error')
+                }
+            }
+        </script>
 </body>
 
 </html>
